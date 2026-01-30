@@ -85,6 +85,19 @@ class Tree {
 
     return node;
   }
+
+  // Finding a value in a tree.
+
+  findRec(node, value) {
+    if (node === null) return null;
+    if (node.data === value) return node;
+    else if (node.data > value) return this.findRec(node.left, value);
+    else if (node.data < value) return this.findRec(node.right, value);
+  }
+
+  find(value) {
+    return this.findRec(this.root, value);
+  }
 }
 
 // TESTS
@@ -110,3 +123,6 @@ prettyPrint(tree.root);
 
 tree.deleteItem(8);
 prettyPrint(tree.root);
+
+console.log(tree.find(5));
+console.log(tree.find(26));
