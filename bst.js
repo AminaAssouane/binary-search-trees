@@ -53,6 +53,38 @@ class Tree {
     if (curr.data > value) curr.left = temp;
     else curr.right = temp;
   }
+
+  deleteItem(value) {
+    this.root = this.deleteRec(this.root, value);
+  }
+
+  getSuccessor(curr) {
+    curr = curr.right;
+    while (curr !== null && curr.left !== null) curr = curr.left;
+    return curr;
+  }
+
+  deleteRec(node, value) {
+    if (node === null) return null;
+
+    if (value < node.data) {
+      node.left = this.deleteRec(node.left, value);
+    } else if (value > node.data) {
+      node.right = this.deleteRec(node.right, value);
+    } else {
+      // FOUND the node
+      // Node with 0 or 1 child
+      if (node.left === null) return node.right;
+      if (node.right === null) return node.left;
+
+      // Node with 2 children
+      const succ = this.getSuccessor(node);
+      node.data = succ.data;
+      node.right = this.deleteRec(node.right, succ.data);
+    }
+
+    return node;
+  }
 }
 
 // TESTS
@@ -74,4 +106,7 @@ const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 prettyPrint(tree.root);
 
 tree.insert(100);
+prettyPrint(tree.root);
+
+tree.deleteItem(8);
 prettyPrint(tree.root);
