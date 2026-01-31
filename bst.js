@@ -115,9 +115,57 @@ class Tree {
     }
   }
 
-  inOrderForEach(callback) {}
-  preOrderForEach(callback) {}
-  postOrderForEach(callback) {}
+  // left, root, right
+  inOrderRec(node, callback) {
+    if (node === null) return;
+
+    this.inOrderRec(node.left, callback);
+    callback(node.data);
+    this.inOrderRec(node.right, callback);
+  }
+
+  inOrderForEach(callback) {
+    if (typeof callback !== "function")
+      throw new Error("A callback function is required");
+
+    if (this.root === null) return null;
+    this.inOrderRec(this.root, callback);
+  }
+
+  // root, left, right
+  preOrderRec(node, callback) {
+    if (node === null) return;
+
+    callback(node.data);
+
+    this.preOrderRec(node.left, callback);
+    this.preOrderRec(node.right, callback);
+  }
+
+  preOrderForEach(callback) {
+    if (typeof callback !== "function")
+      throw new Error("A callback function is required");
+
+    if (this.root === null) return null;
+    this.preOrderRec(this.root, callback);
+  }
+
+  // left, right, root
+  postOrderRec(node, callback) {
+    if (node === null) return;
+
+    this.postOrderRec(node.left, callback);
+    this.postOrderRec(node.right, callback);
+    callback(node.data);
+  }
+
+  postOrderForEach(callback) {
+    if (typeof callback !== "function")
+      throw new Error("A callback function is required");
+
+    if (this.root === null) return null;
+    this.postOrderRec(this.root, callback);
+  }
 }
 
 // TESTS
