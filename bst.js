@@ -98,6 +98,26 @@ class Tree {
   find(value) {
     return this.findRec(this.root, value);
   }
+
+  levelOrderForEach(callback) {
+    if (typeof callback !== "function")
+      throw new Error("A callback function is required");
+
+    if (this.root === null) return null;
+
+    let queue = [this.root];
+    while (queue.length != 0) {
+      let curr = queue[0];
+      callback(curr.data);
+      if (curr.left != null) queue.push(curr.left);
+      if (curr.right != null) queue.push(curr.right);
+      queue.shift();
+    }
+  }
+
+  inOrderForEach(callback) {}
+  preOrderForEach(callback) {}
+  postOrderForEach(callback) {}
 }
 
 // TESTS
@@ -126,3 +146,5 @@ prettyPrint(tree.root);
 
 console.log(tree.find(5));
 console.log(tree.find(26));
+
+tree.levelOrderForEach(console.log);
