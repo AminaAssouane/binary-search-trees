@@ -178,6 +178,21 @@ class Tree {
     if (!node) return undefined;
     return this.heightRec(node);
   }
+
+  // return the depth of a node
+
+  depthRec(node, value) {
+    if (node === null) return null;
+    if (node.data === value) return 0;
+    else if (node.data > value) return 1 + this.depthRec(node.left, value);
+    else if (node.data < value) return 1 + this.depthRec(node.right, value);
+  }
+
+  depth(value) {
+    const node = this.find(value);
+    if (!node) return undefined;
+    return this.depthRec(this.root, value);
+  }
 }
 
 // TESTS
