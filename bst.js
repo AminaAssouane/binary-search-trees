@@ -166,6 +166,18 @@ class Tree {
     if (this.root === null) return null;
     this.postOrderRec(this.root, callback);
   }
+
+  // return the height of a node
+  heightRec(node) {
+    if (node === null) return -1; // edges: leaf node height = 0
+    return 1 + Math.max(this.heightRec(node.left), this.heightRec(node.right));
+  }
+
+  height(value) {
+    const node = this.find(value);
+    if (!node) return undefined;
+    return this.heightRec(node);
+  }
 }
 
 // TESTS
@@ -196,3 +208,6 @@ console.log(tree.find(5));
 console.log(tree.find(26));
 
 tree.levelOrderForEach(console.log);
+
+tree.inOrderForEach(console.log);
+console.log(`The height of 67 : ${tree.height(67)}`);
