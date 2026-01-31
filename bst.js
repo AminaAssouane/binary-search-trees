@@ -193,6 +193,19 @@ class Tree {
     if (!node) return undefined;
     return this.depthRec(this.root, value);
   }
+
+  // Checking if the tree is balanced
+  isBalancedRec(node) {
+    if (!node) return true;
+    if (Math.abs(this.heightRec(node.left) - this.heightRec(node.right)) > 1)
+      return false;
+    return this.isBalancedRec(node.left) && this.isBalancedRec(node.right);
+  }
+
+  isBalanced() {
+    if (!this.root) return true;
+    return this.isBalancedRec(this.root);
+  }
 }
 
 // TESTS
