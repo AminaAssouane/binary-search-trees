@@ -230,20 +230,56 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+// DRIVER SCRIPT
+console.log("Creating BST of 13 nodes.");
+
+function generateRandomArray(size) {
+  const arr = [];
+  for (let i = 0; i < size; i++) {
+    arr.push(Math.floor(Math.random() * 100)); // random number 0–99
+  }
+  return arr;
+}
+
+const tree = new Tree(generateRandomArray(13));
 
 prettyPrint(tree.root);
 
-tree.insert(100);
-prettyPrint(tree.root);
+console.log(`Is our tree balanced : ${tree.isBalanced() ? "YES!" : "No."}`);
 
-tree.deleteItem(8);
-prettyPrint(tree.root);
-
-console.log(tree.find(5));
-console.log(tree.find(26));
-
+console.log("Printing all elements in level, pre, post, and in order : ");
+console.log("Our tree in level order : ");
 tree.levelOrderForEach(console.log);
-
+console.log("Our tree in order : ");
 tree.inOrderForEach(console.log);
-console.log(`The height of 67 : ${tree.height(67)}`);
+console.log("Our tree in preorder : ");
+tree.preOrderForEach(console.log);
+console.log("Our tree in  postorder : ");
+tree.postOrderForEach(console.log);
+
+tree.insert(200);
+tree.insert(300);
+tree.insert(400);
+tree.insert(500);
+tree.insert(600);
+tree.insert(700);
+prettyPrint(tree.root);
+
+console.log(`Is our tree balanced : ${tree.isBalanced() ? "YES!" : "No."}`);
+
+tree.rebalance();
+console.log("After calling rebalance() : ");
+console.log(`Is our tree balanced : ${tree.isBalanced() ? "YES!" : "No."}`);
+prettyPrint(tree.root);
+
+console.log(
+  "Again, printing all elements in level, pre, post, and in order : ",
+);
+console.log("Our tree in level order : ");
+tree.levelOrderForEach(console.log);
+console.log("Our tree in order : ");
+tree.inOrderForEach(console.log);
+console.log("Our tree in preorder : ");
+tree.preOrderForEach(console.log);
+console.log("Our tree in  postorder : ");
+tree.postOrderForEach(console.log);
