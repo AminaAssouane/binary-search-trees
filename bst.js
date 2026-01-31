@@ -206,6 +206,14 @@ class Tree {
     if (!this.root) return true;
     return this.isBalancedRec(this.root);
   }
+
+  // method that rebalances a tree
+  rebalance() {
+    if (this.root === null) return null;
+    let inOrderArray = [];
+    this.inOrderRec(this.root, (v) => inOrderArray.push(v));
+    this.root = this.buildTree(inOrderArray);
+  }
 }
 
 // TESTS
